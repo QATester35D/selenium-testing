@@ -36,7 +36,9 @@ from selenium.webdriver.common.by import By
 class TestClickingButtons():
 #   def setup_method(self, method):
   def __init__(self):
-    self.driver = webdriver.Firefox()
+    # self.driver = webdriver.Firefox()
+    options = webdriver.FirefoxOptions()
+    self.driver = webdriver.Firefox(options=options)
     # self.vars = {}
 
 #   def test_basic_options():
@@ -46,50 +48,42 @@ class TestClickingButtons():
   def teardown_method(self, method):
     self.driver.quit()
 
-#   def nav_back(self):
-#     self.driver.back()
-  
-#   def test_clickingButtons(self):
-#     self.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
-#     self.driver.set_window_size(550, 692)
-#     self.driver.find_element(By.ID, "name").click()
-#     self.driver.find_element(By.ID, "name").send_keys("Shawn")
-#     self.driver.find_element(By.ID, "internal_explicit_submit").click()
-#     self.driver.find_element(By.ID, "internal_implicit_submit").click()
-#     self.driver.find_element(By.ID, "internal_span_submit").click()
-#     self.driver.find_element(By.ID, "external_explicit_submit").click()
-#     self.driver.find_element(By.ID, "external_implicit_submit").click()
+browserDriver = TestClickingButtons()
 
-d = TestClickingButtons()
-# d.test_basic_options()
-# d.test_basic_options()
-# d.test_clickingButtons()
-d.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
-d.driver.set_window_size(550, 692)
-d.driver.find_element(By.ID, "name").click()
-d.driver.find_element(By.ID, "name").send_keys("Shawn")# Find the label element 
-label = d.driver.find_element(By.ID, "internal_explicit_submit").text
+# d.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
+browserDriver.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
+browserDriver.driver.set_window_size(550, 692)
+browserDriver.driver.find_element(By.ID, "name").click()
+browserDriver.driver.find_element(By.ID, "name").send_keys("Shawn")# Find the label element 
+label = browserDriver.driver.find_element(By.ID, "internal_explicit_submit").text
 print("internal_explicit_submit label is: ",label)
-lineHeight = d.driver.find_element(By.ID, "internal_explicit_submit").value_of_css_property("line-height")
+lineHeight = browserDriver.driver.find_element(By.ID, "internal_explicit_submit").value_of_css_property("line-height")
 print("internal_explicit_submit line height is: ",lineHeight)
-size = d.driver.find_element(By.ID, "internal_explicit_submit").value_of_css_property("font-size")
+size = browserDriver.driver.find_element(By.ID, "internal_explicit_submit").value_of_css_property("font-size")
 print("internal_explicit_submit size is: ",size)
-d.driver.find_element(By.ID, "internal_explicit_submit").click()
-d.driver.back()
+fontUsed = browserDriver.driver.find_element(By.ID, "internal_explicit_submit").value_of_css_property("font-family")
+print("internal_explicit_submit font being used is: ",fontUsed)
+padding = browserDriver.driver.find_element(By.ID, "internal_explicit_submit").value_of_css_property("padding")
+print("internal_explicit_submit padding being used is: ",padding)
+color = browserDriver.driver.find_element(By.ID, "internal_explicit_submit").value_of_css_property("color")
+print("internal_explicit_submit color being used is: ",color)
+
+browserDriver.driver.find_element(By.ID, "internal_explicit_submit").click()
+browserDriver.driver.back()
 label = d.driver.find_element(By.ID, "internal_implicit_submit").text
 print("internal_implicit_submit label is: ",label)
-d.driver.find_element(By.ID, "internal_implicit_submit").click()
-d.driver.back()
+browserDriver.driver.find_element(By.ID, "internal_implicit_submit").click()
+browserDriver.driver.back()
 label = d.driver.find_element(By.ID, "internal_span_submit").text
 print("internal_span_submit label is: ",label)
-d.driver.find_element(By.ID, "internal_span_submit").click()
-d.driver.back()
+browserDriver.driver.find_element(By.ID, "internal_span_submit").click()
+browserDriver.driver.back()
 label = d.driver.find_element(By.ID, "external_explicit_submit").text
 print("external_explicit_submit label is: ",label)
-d.driver.find_element(By.ID, "external_explicit_submit").click()
-d.driver.back()
+browserDriver.driver.find_element(By.ID, "external_explicit_submit").click()
+browserDriver.driver.back()
 label = d.driver.find_element(By.ID, "external_implicit_submit").text
 print("external_implicit_submit label is: ",label)
-d.driver.find_element(By.ID, "external_implicit_submit").click()
-d.driver.back()
-d.driver.quit()
+browserDriver.driver.find_element(By.ID, "external_implicit_submit").click()
+browserDriver.driver.back()
+browserDriver.driver.quit()
