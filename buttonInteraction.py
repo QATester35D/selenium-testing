@@ -48,57 +48,55 @@ class TestClickingButtons():
   def teardown_method(self, method):
     self.driver.quit()
 
-# browserDriver = TestClickingButtons()
+browserDriver = TestClickingButtons()
 
-# # d.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
-# browserDriver.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
-# browserDriver.driver.set_window_size(550, 692)
-# nameTextField=browserDriver.driver.find_element(By.ID, "name")
-# nameTextField.click()
-# nameTextField.send_keys("Shawn") # Find the label element 
+browserDriver.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
+browserDriver.driver.set_window_size(550, 692)
+nameTextField=browserDriver.driver.find_element(By.ID, "name")
+nameTextField.click()
+nameTextField.send_keys("Shawn") # Find the label element 
 
-# internalExplicitButton=browserDriver.driver.find_element(By.ID, "internal_explicit_submit")
-# label = internalExplicitButton.text
-# print("internal_explicit_submit label is: ",label)
-# lineHeight = internalExplicitButton.value_of_css_property("line-height")
-# print("internal_explicit_submit line height is: ",lineHeight)
-# size = internalExplicitButton.value_of_css_property("font-size")
-# print("internal_explicit_submit size is: ",size)
-# fontUsed = internalExplicitButton.value_of_css_property("font-family")
-# print("internal_explicit_submit font being used is: ",fontUsed)
-# padding = internalExplicitButton.value_of_css_property("padding")
-# print("internal_explicit_submit padding being used is: ",padding)
-# color = internalExplicitButton.value_of_css_property("color")
-# print("internal_explicit_submit color being used is: ",color)
+internalExplicitButton=browserDriver.driver.find_element(By.ID, "internal_explicit_submit")
+label = internalExplicitButton.text
+print("internal_explicit_submit label is: ",label)
+lineHeight = internalExplicitButton.value_of_css_property("line-height")
+print("internal_explicit_submit line height is: ",lineHeight)
+size = internalExplicitButton.value_of_css_property("font-size")
+print("internal_explicit_submit size is: ",size)
+fontUsed = internalExplicitButton.value_of_css_property("font-family")
+print("internal_explicit_submit font being used is: ",fontUsed)
+padding = internalExplicitButton.value_of_css_property("padding")
+print("internal_explicit_submit padding being used is: ",padding)
+color = internalExplicitButton.value_of_css_property("color")
+print("internal_explicit_submit color being used is: ",color)
 
+internalExplicitButton.click()
+browserDriver.driver.back()
 
-# internalExplicitButton.click()
-# browserDriver.driver.back()
+internalImplicitButton=browserDriver.driver.find_element(By.ID, "internal_implicit_submit")
+label=internalImplicitButton.text
+print("internal_implicit_submit label is: ",label)
+internalImplicitButton.click()
+browserDriver.driver.back()
 
-# internalImplicitButton=browserDriver.driver.find_element(By.ID, "internal_implicit_submit")
-# label=internalImplicitButton.text
-# print("internal_implicit_submit label is: ",label)
-# internalImplicitButton.click()
-# browserDriver.driver.back()
+spannedSubmitButton=browserDriver.driver.find_element(By.ID, "internal_span_submit")
+label=spannedSubmitButton.text
+print("internal_span_submit label is: ",label)
+spannedSubmitButton.click()
+browserDriver.driver.back()
 
-# spannedSubmitButton=browserDriver.driver.find_element(By.ID, "internal_span_submit")
-# label=spannedSubmitButton.text
-# print("internal_span_submit label is: ",label)
-# spannedSubmitButton.click()
-# browserDriver.driver.back()
+externalExplicitButton=browserDriver.driver.find_element(By.ID, "external_explicit_submit")
+label = externalExplicitButton.text
+print("external_explicit_submit label is: ",label)
+externalExplicitButton.click()
+browserDriver.driver.back()
 
-# externalExplicitButton=browserDriver.driver.find_element(By.ID, "external_explicit_submit")
-# label = externalExplicitButton.text
-# print("external_explicit_submit label is: ",label)
-# externalExplicitButton.click()
-# browserDriver.driver.back()
-
-# externalImplicitButton=browserDriver.driver.find_element(By.ID, "external_implicit_submit")
-# label = externalImplicitButton.text
-# print("external_implicit_submit label is: ",label)
-# externalImplicitButton.click()
-# browserDriver.driver.back()
-# browserDriver.driver.quit()
+externalImplicitButton=browserDriver.driver.find_element(By.ID, "external_implicit_submit")
+label = externalImplicitButton.text
+print("external_implicit_submit label is: ",label)
+externalImplicitButton.click()
+browserDriver.driver.back()
+browserDriver.driver.quit()
 
 #Using another site now - Formy
 formyBrowserDriver = TestClickingButtons()
