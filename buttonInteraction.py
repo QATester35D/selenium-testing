@@ -1,23 +1,28 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+import time
 
-class TestClickingButtons():
-  def __init__(self):
-    options = webdriver.FirefoxOptions()
-    self.driver = webdriver.Firefox(options=options)
+browser = webdriver.Firefox()
 
-  def teardown_method(self, method):
-    self.driver.quit()
+print("Working with selenium test pages - submit buttons") #The main page is: https://www.selenium.dev/selenium/web/
+# browser.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html") #This is the direct page
+browser.get("https://www.selenium.dev/selenium/web/")
+browser.set_window_size(550, 692)
 
-browserDriver = TestClickingButtons()
+element= WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/ul/li[30]/a")))
+browser.find_element(By.LINK_TEXT,"click_tests/html5_submit_buttons.html").is_displayed()
+buttonLinkText=browser.find_element(By.LINK_TEXT,"click_tests/html5_submit_buttons.html")
+buttonLinkText.click()
 
-browserDriver.driver.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html")
-browserDriver.driver.set_window_size(550, 692)
-nameTextField=browserDriver.driver.find_element(By.ID, "name")
-nameTextField.click()
+element=WebDriverWait(browser,10).until(EC.presence_of_element_located((By.ID,'name')))
+nameTextField = browser.find_element(By.NAME,"name")
+nameTextField.clear()
 nameTextField.send_keys("Shawn") # Find the label element 
 
-internalExplicitButton=browserDriver.driver.find_element(By.ID, "internal_explicit_submit")
+internalExplicitButton=browser.find_element(By.ID, "internal_explicit_submit")
 label = internalExplicitButton.text
 print("internal_explicit_submit label is: ",label)
 lineHeight = internalExplicitButton.value_of_css_property("line-height")
@@ -32,67 +37,88 @@ color = internalExplicitButton.value_of_css_property("color")
 print("internal_explicit_submit color being used is: ",color)
 
 internalExplicitButton.click()
-browserDriver.driver.back()
+browser.back()
 
-internalImplicitButton=browserDriver.driver.find_element(By.ID, "internal_implicit_submit")
+internalImplicitButton=browser.find_element(By.ID, "internal_implicit_submit")
 label=internalImplicitButton.text
 print("internal_implicit_submit label is: ",label)
 internalImplicitButton.click()
-browserDriver.driver.back()
+browser.back()
 
-spannedSubmitButton=browserDriver.driver.find_element(By.ID, "internal_span_submit")
+spannedSubmitButton=browser.find_element(By.ID, "internal_span_submit")
 label=spannedSubmitButton.text
 print("internal_span_submit label is: ",label)
 spannedSubmitButton.click()
-browserDriver.driver.back()
+browser.back()
 
-externalExplicitButton=browserDriver.driver.find_element(By.ID, "external_explicit_submit")
+externalExplicitButton=browser.find_element(By.ID, "external_explicit_submit")
 label = externalExplicitButton.text
 print("external_explicit_submit label is: ",label)
 externalExplicitButton.click()
-browserDriver.driver.back()
-
-externalImplicitButton=browserDriver.driver.find_element(By.ID, "external_implicit_submit")
+browser.back()
+externalImplicitButton=browser.find_element(By.ID, "external_implicit_submit")
 label = externalImplicitButton.text
 print("external_implicit_submit label is: ",label)
 externalImplicitButton.click()
-browserDriver.driver.back()
-browserDriver.driver.quit()
+browser.back()
+browser.back()
 
-#Using another site now - Formy
-formyBrowserDriver = TestClickingButtons()
-formyBrowserDriver.driver.get("https://formy-project.herokuapp.com/")
-formyBrowserDriver.driver.set_window_size(550, 692)
-buttonsLink=formyBrowserDriver.driver.find_element(By.LINK_TEXT, "Buttons")
+element= WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/ul/li[5]/a")))
+browser.find_element(By.LINK_TEXT,"attributes.html").is_displayed()
+buttonLinkText=browser.find_element(By.LINK_TEXT,"attributes.html")
+browser.find_element(By.LINK_TEXT,"attributes.html").click()
+browser.find_element(By.CLASS_NAME, "cur")
+browser.back()
+browser.quit()
+##################################
+# Using another site now - Formy #
+##################################
+formybrowser = webdriver.Firefox()
+print("Now working with the Formy webpages - the Buttons page")
+formybrowser.get("https://formy-project.herokuapp.com/")
+formybrowser.set_window_size(550, 692)
+buttonsLink=formybrowser.find_element(By.LINK_TEXT, "Buttons")
 buttonsLink.click()
-# browserDriver.driver.switch_to.window("https://formy-project.herokuapp.com/buttons")
-primaryButton=formyBrowserDriver.driver.find_element(By.CLASS_NAME, "btn-primary")
+# browser.switch_to.window("https://formy-project.herokuapp.com/buttons")
+primaryButton=formybrowser.find_element(By.CLASS_NAME, "btn-primary")
+label = primaryButton.text
+print ("The Formy blue Primary button label is: ",label)
+color = primaryButton.value_of_css_property("color")
+print ("The Formy blue Primary button color is: ",color)
+lineHeight = primaryButton.value_of_css_property("line-height")
+print ("The Formy blue Primary button line height is: ",lineHeight)
+fontSize = primaryButton.value_of_css_property("font-size")
+print ("The Formy blue Primary button font size is: ",fontSize)
+fontType = primaryButton.value_of_css_property("font-family")
+print ("The Formy blue Primary button font size is: ",fontType)
+
 primaryButton.click()
-successButton=formyBrowserDriver.driver.find_element(By.CLASS_NAME, "btn-success")
+successButton=formybrowser.find_element(By.CLASS_NAME, "btn-success")
 successButton.click()
-infoButton=formyBrowserDriver.driver.find_element(By.CLASS_NAME, "btn-info")
+infoButton=formybrowser.find_element(By.CLASS_NAME, "btn-info")
 infoButton.click()
-warningButton=formyBrowserDriver.driver.find_element(By.CLASS_NAME, "btn-warning")
+warningButton=formybrowser.find_element(By.CLASS_NAME, "btn-warning")
 warningButton.click()
-dangerButton=formyBrowserDriver.driver.find_element(By.CLASS_NAME, "btn-danger")
+dangerButton=formybrowser.find_element(By.CLASS_NAME, "btn-danger")
 dangerButton.click()
-linkObject=formyBrowserDriver.driver.find_element(By.CLASS_NAME, "btn-link")
+linkObject=formybrowser.find_element(By.CLASS_NAME, "btn-link")
 linkObject.click()
-leftButton=formyBrowserDriver.driver.find_element(By.CSS_SELECTOR, ".form-group:nth-child(2) .btn:nth-child(1)")
+leftButton=formybrowser.find_element(By.CSS_SELECTOR, ".form-group:nth-child(2) .btn:nth-child(1)")
 leftButton.click()
-middleButton=formyBrowserDriver.driver.find_element(By.CSS_SELECTOR, ".form-group:nth-child(2) .btn:nth-child(2)")
+middleButton=formybrowser.find_element(By.CSS_SELECTOR, ".form-group:nth-child(2) .btn:nth-child(2)")
 middleButton.click()
-rightButton=formyBrowserDriver.driver.find_element(By.CSS_SELECTOR, ".btn-primary:nth-child(3)")
+rightButton=formybrowser.find_element(By.CSS_SELECTOR, ".btn-primary:nth-child(3)")
 rightButton.click()
-oneButton=formyBrowserDriver.driver.find_element(By.CSS_SELECTOR, ".form-group:nth-child(3) .col-sm-8 > .btn-group > .btn:nth-child(1)")
+oneButton=formybrowser.find_element(By.CSS_SELECTOR, ".form-group:nth-child(3) .col-sm-8 > .btn-group > .btn:nth-child(1)")
 oneButton.click()
-twoButton=formyBrowserDriver.driver.find_element(By.CSS_SELECTOR, ".form-group:nth-child(3) .btn:nth-child(2)")
-dropdownItem=formyBrowserDriver.driver.find_element(By.ID, "btnGroupDrop1")
+twoButton=formybrowser.find_element(By.CSS_SELECTOR, ".form-group:nth-child(3) .btn:nth-child(2)")
+dropdownItem=formybrowser.find_element(By.ID, "btnGroupDrop1")
 dropdownItem.click()
-dropdownLink1=formyBrowserDriver.driver.find_element(By.LINK_TEXT, "Dropdown link 1")
+dropdownLink1=formybrowser.find_element(By.LINK_TEXT, "Dropdown link 1")
 dropdownLink1.click()
-dropdownItem=formyBrowserDriver.driver.find_element(By.ID, "btnGroupDrop1")
+dropdownItem=formybrowser.find_element(By.ID, "btnGroupDrop1")
 dropdownItem.click()
-dropdownLink2=formyBrowserDriver.driver.find_element(By.LINK_TEXT, "Dropdown link 2")
+dropdownLink2=formybrowser.find_element(By.LINK_TEXT, "Dropdown link 2")
 dropdownLink2.click()
-formyBrowserDriver.driver.quit()
+formybrowser.back()
+formybrowser.quit()
