@@ -5,8 +5,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
 
+#############################################################################
+# Using another site now - Selenium - https://www.selenium.dev/selenium/web/
+#############################################################################
 browser = webdriver.Firefox()
-
 print("Working with selenium test pages - submit buttons") #The main page is: https://www.selenium.dev/selenium/web/
 # browser.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html") #This is the direct page
 browser.get("https://www.selenium.dev/selenium/web/")
@@ -62,24 +64,27 @@ print("external_implicit_submit label is: ",label)
 externalImplicitButton.click()
 browser.back()
 browser.back()
-
+################################################################################
+#This short section of code for the attributes will get moved to another script
+################################################################################
 element= WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/ul/li[5]/a")))
 browser.find_element(By.LINK_TEXT,"attributes.html").is_displayed()
 buttonLinkText=browser.find_element(By.LINK_TEXT,"attributes.html")
-browser.find_element(By.LINK_TEXT,"attributes.html").click()
+# browser.find_element(By.LINK_TEXT,"attributes.html").click()
+buttonLinkText.click()
 browser.find_element(By.CLASS_NAME, "cur")
 browser.back()
 browser.quit()
-##################################
-# Using another site now - Formy #
-##################################
+########################################################################
+# Using another site now - Formy - https://formy-project.herokuapp.com/
+########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the Buttons page")
 formybrowser.get("https://formy-project.herokuapp.com/")
 formybrowser.set_window_size(550, 692)
 buttonsLink=formybrowser.find_element(By.LINK_TEXT, "Buttons")
 buttonsLink.click()
-# browser.switch_to.window("https://formy-project.herokuapp.com/buttons")
+
 primaryButton=formybrowser.find_element(By.CLASS_NAME, "btn-primary")
 label = primaryButton.text
 print ("The Formy blue Primary button label is: ",label)
@@ -91,8 +96,8 @@ fontSize = primaryButton.value_of_css_property("font-size")
 print ("The Formy blue Primary button font size is: ",fontSize)
 fontType = primaryButton.value_of_css_property("font-family")
 print ("The Formy blue Primary button font size is: ",fontType)
-
 primaryButton.click()
+
 successButton=formybrowser.find_element(By.CLASS_NAME, "btn-success")
 successButton.click()
 infoButton=formybrowser.find_element(By.CLASS_NAME, "btn-info")
@@ -122,3 +127,15 @@ dropdownLink2=formybrowser.find_element(By.LINK_TEXT, "Dropdown link 2")
 dropdownLink2.click()
 formybrowser.back()
 formybrowser.quit()
+###############################################################################
+# Using another site now - jQuery User Interface - https://jqueryui.com/demos/
+###############################################################################
+jqueryuiBrowser = webdriver.Firefox()
+print("Now working with the jQuery User Interface webpages - the Buttons page")
+jqueryuiBrowser.get("https://jqueryui.com/demos/")
+jqueryuiBrowser.set_window_size(600, 800)
+
+element= WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id=\"sidebar\"]/aside[2]/ul/li[3]/a")))
+browser.find_element(By.LINK_TEXT,"https://jqueryui.com/button/").is_displayed()
+buttonLinkText=browser.find_element(By.LINK_TEXT,"https://jqueryui.com/button/")
+buttonLinkText.click()
