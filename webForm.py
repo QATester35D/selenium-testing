@@ -34,13 +34,14 @@ def findDate (dateValue):
 
     match dateManipulation:
         case "today":
-            newDate=1
+            addToDate = date.today()
+            newDate=str(addToDate.month) +"/"+ str(addToDate.day) +"/"+ str(addToDate.year)
         case "add":
             addToDate = date.today() + timedelta(digitForDate)
             newDate=str(addToDate.month) +"/"+ str(addToDate.day) +"/"+ str(addToDate.year)
         case "sub":
             subFromDate = date.today() - timedelta(digitForDate)
-            newDate=str(addToDate.month) +"/"+ str(addToDate.day) +"/"+ str(addToDate.year)
+            newDate=str(subFromDate.month) +"/"+ str(subFromDate.day) +"/"+ str(subFromDate.year)
         case _:
             print("Something went wrong with converting date.")
     
@@ -56,24 +57,29 @@ formybrowser.set_window_size(800, 800)
 keyMousePress=formybrowser.find_element(By.LINK_TEXT, "Complete Web Form")
 keyMousePress.click()
 
-element= WebDriverWait(formybrowser, 10).until(EC.presence_of_element_located((By.ID, "datepicker")))
-
-firstName=formybrowser.find_element(By.ID, "first-name") #text field
-lastName=formybrowser.find_element(By.ID, "last-name") #text field
-jobTitle=formybrowser.find_element(By.ID, "job-title") #text field
-edRb1HighSchool=formybrowser.find_element(By.ID, "radio-button-1") #radio button
-edRb2College=formybrowser.find_element(By.ID, "radio-button-2") #radio button
-edRb3Grad=formybrowser.find_element(By.ID, "radio-button-3") #radio button
-sexMale=formybrowser.find_element(By.ID, "checkbox-1") #checkbox
-sexFemale=formybrowser.find_element(By.ID, "checkbox-2") #checkbox
-sexNotSay=formybrowser.find_element(By.ID, "checkbox-3") #checkbox
-yrsExp=formybrowser.find_element(By.ID, "select-menu") #dropbox
-someDate=formybrowser.find_element(By.ID, "datepicker") #datepicker
-submitButton=formybrowser.find_element(By.CLASS_NAME,"btn-primary")
-
+i=1
 #get tuple size
 for sublist in formTestData:
-    #("Jerry","Seinfeld","Comedian","Grad","Male","4","+40")
+    if i==1:
+        i+=1
+    else:
+        formybrowser.get("https://formy-project.herokuapp.com/form")
+
+    element= WebDriverWait(formybrowser, 10).until(EC.presence_of_element_located((By.ID, "datepicker")))
+
+    firstName=formybrowser.find_element(By.ID, "first-name") #text field
+    lastName=formybrowser.find_element(By.ID, "last-name") #text field
+    jobTitle=formybrowser.find_element(By.ID, "job-title") #text field
+    edRb1HighSchool=formybrowser.find_element(By.ID, "radio-button-1") #radio button
+    edRb2College=formybrowser.find_element(By.ID, "radio-button-2") #radio button
+    edRb3Grad=formybrowser.find_element(By.ID, "radio-button-3") #radio button
+    sexMale=formybrowser.find_element(By.ID, "checkbox-1") #checkbox
+    sexFemale=formybrowser.find_element(By.ID, "checkbox-2") #checkbox
+    sexNotSay=formybrowser.find_element(By.ID, "checkbox-3") #checkbox
+    yrsExp=formybrowser.find_element(By.ID, "select-menu") #dropbox
+    someDate=formybrowser.find_element(By.ID, "datepicker") #datepicker
+    submitButton=formybrowser.find_element(By.CLASS_NAME,"btn-primary")
+    
     firstName.send_keys(sublist[0])
     lastName.send_keys(sublist[1])
     jobTitle.send_keys(sublist[2])
@@ -106,13 +112,10 @@ for sublist in formTestData:
     dropdown.select_by_value(sublist[5])
 
     #Date
-    testData=formTestData[0]
-    dateToSelect=findDate(testData[6])
-    if dateToSelect == "1":
-        someDate.send_keys(Keys.ENTER)
-    else:
-        someDate.send_keys(dateToSelect)
-        someDate.send_keys(Keys.TAB)
+    testData=sublist[6]
+    dateToSelect=findDate(testData)
+    someDate.send_keys(dateToSelect)
+    someDate.send_keys(Keys.TAB)
 
     time.sleep(2) #Used only for testing purposes to see what is on the screen before the window is closed
     submitButton.click()
@@ -125,6 +128,6 @@ for sublist in formTestData:
         print("Submission successful.")
     else:
         print("Error with submitting form. The message displayed is:",alertMsg)
-    formybrowser.back()
+    formybrowser.get("https://formy-project.herokuapp.com/form")
 
 print("Done with data driven test on form submission.")
