@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from datetime import timedelta, date
 import time
@@ -68,6 +69,7 @@ sexFemale=formybrowser.find_element(By.ID, "checkbox-2") #checkbox
 sexNotSay=formybrowser.find_element(By.ID, "checkbox-3") #checkbox
 yrsExp=formybrowser.find_element(By.ID, "select-menu") #dropbox
 someDate=formybrowser.find_element(By.ID, "datepicker") #datepicker
+submitButton=formybrowser.find_element(By.CLASS_NAME,"btn-primary")
 
 #get tuple size
 for sublist in formTestData:
@@ -86,7 +88,6 @@ for sublist in formTestData:
             edRb3Grad.click()
         case _:
             print("The data value isn't a valid one for education.")
-#("Jerry","Seinfeld","Comedian","Grad","Male","4","+40")
     #Sex
     match sublist[4]:
         case "Male":
@@ -100,8 +101,9 @@ for sublist in formTestData:
 
     #Years of experience
     # yrsExp.select_by_index(sublist[5])
-    formybrowser.find_element(By.ID, "select-menu")
-    
+    formybrowser.find_element(By.ID, "select-menu") #Form Filling Dropdown Options
+    dropdown = Select(formybrowser.find_element(By.ID,"select-menu"))
+    dropdown.select_by_value(sublist[5])
 
     #Date
     testData=formTestData[0]
@@ -113,3 +115,16 @@ for sublist in formTestData:
         someDate.send_keys(Keys.TAB)
 
     time.sleep(2) #Used only for testing purposes to see what is on the screen before the window is closed
+    submitButton.click()
+    #Verify submission
+    formSubmissionAlert=formybrowser.find_element(By.CLASS_NAME, "alert-success") 
+    alertMsg=formSubmissionAlert.get_property("innerText")
+    # alertMsg=formSubmissionAlert.text()
+    expectedMessage="The form was successfully submitted!"
+    if alertMsg == expectedMessage:
+        print("Submission successful.")
+    else:
+        print("Error with submitting form. The message displayed is:",alertMsg)
+    formybrowser.back()
+
+print("Done with data driven test on form submission.")
