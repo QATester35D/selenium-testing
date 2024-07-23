@@ -3,19 +3,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from datetime import timedelta, date
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import Select
 import time
 
 #########################################################################
-#Test Case to fill out form
+#Test Case to interact with the Date Picker
 #########################################################################
 formybrowser = webdriver.Firefox()
-print("Now working with the Formy webpages - the \"Complete Web Form\" page")
-formybrowser.get("https://formy-project.herokuapp.com/")
+# formybrowser.get("https://formy-project.herokuapp.com/form")
+formybrowser.get("https://formy-project.herokuapp.com/datepicker")
 formybrowser.set_window_size(800, 800)
-keyMousePress=formybrowser.find_element(By.LINK_TEXT, "Complete Web Form")
-keyMousePress.click()
 
 element= WebDriverWait(formybrowser, 10).until(EC.presence_of_element_located((By.ID, "datepicker")))
-
-firstName=formybrowser.find_element(By.ID, "first-name") #text field
+pickDay=formybrowser.find_element(By.ID, "datepicker") #datepicker
+pickDay.send_keys("07/10/2024")
