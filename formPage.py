@@ -17,6 +17,9 @@ seleniumDevbrowser = webdriver.Firefox()
 print("Now working with the Selenium Dev webpages - the web form page")
 seleniumDevbrowser.get("https://www.selenium.dev/selenium/web/formPage.html")
 seleniumDevbrowser.set_window_size(900, 800)
+##################
+
+##################
 email=seleniumDevbrowser.find_element(By.ID,"email")
 age=seleniumDevbrowser.find_element(By.ID,"age")
 helloThereButton=seleniumDevbrowser.find_element(By.ID,"submitButton")
@@ -58,10 +61,20 @@ try:
     assert cb2Status == False
 except:
     print("The checkbox should not be checked.")
+
+## Dropdown
 dd1=seleniumDevbrowser.find_element(By.NAME, "selectomatic")
 dropDown1=Select(dd1) #dropbox
-selectedItem=dropDown1.first_selected_option
+selectedItem=dropDown1.first_selected_option #This is used for whatever items is selected
 val=selectedItem.text
 print("Dropdown box 1 has value:",val)
+dropDown1.select_by_index(2)
+selectedItem=dropDown1.first_selected_option
+val=selectedItem.text
+dropDown1.select_by_value("two")
+selectedItem=dropDown1.first_selected_option
+val=selectedItem.text
+time.sleep(1)
+# alert = driver.switch_to.alert
 
 time.sleep(1)
