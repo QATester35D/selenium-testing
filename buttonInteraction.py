@@ -4,13 +4,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
-
+########################################################################
+#This script automates against two different sites
 #############################################################################
 # Using another site now - Selenium - https://www.selenium.dev/selenium/web/
 #############################################################################
 browser = webdriver.Firefox()
 print("Working with selenium test pages - submit buttons") #The main page is: https://www.selenium.dev/selenium/web/
-# browser.get("https://www.selenium.dev/selenium/web/click_tests/html5_submit_buttons.html") #This is the direct page
 browser.get("https://www.selenium.dev/selenium/web/")
 browser.set_window_size(550, 692)
 
@@ -75,7 +75,9 @@ browser.find_element(By.CLASS_NAME, "cur")
 browser.back()
 browser.quit()
 ########################################################################
+########################################################################
 # Using another site now - Formy - https://formy-project.herokuapp.com/
+########################################################################
 ########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the Buttons page")
