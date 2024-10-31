@@ -4,22 +4,73 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
+import random
 import time
 
-def successPage():
-    element=WebDriverWait(seleniumDevbrowser,10).until(EC.presence_of_element_located((By.ID,'greeting')))
-    messageText = seleniumDevbrowser.find_element(By.ID,"greeting")
-    msg=messageText.text
-    print("The status message is:",msg)
-    seleniumDevbrowser.back()
+class WebOrderForm:
+    def __init__(self):
+        self.url = "https://www.selenium.dev/selenium/web/formPage.html"
 
-seleniumDevbrowser = webdriver.Firefox()
-print("Now working with the Selenium Dev webpages - the web form page")
-seleniumDevbrowser.get("https://www.selenium.dev/selenium/web/formPage.html")
-seleniumDevbrowser.set_window_size(900, 800)
-##################
+    def launchPage(self):
+        seleniumDevbrowser = webdriver.Firefox()
+        print("Now working with the Selenium Dev webpages - the web form page")
+        # seleniumDevbrowser.get("https://www.selenium.dev/selenium/web/formPage.html")
+        seleniumDevbrowser.get(self.url)
+        seleniumDevbrowser.set_window_size(900, 800)
+        return(seleniumDevbrowser)
 
-##################
+    def selectMultiItems(self,dropdown):
+        dd1=seleniumDevbrowser.find_element(By.NAME, dropdown)
+        v=Select(dd1)
+        valList=v.options
+        v.deselect_all()
+        bkfstLen=len(valList)
+        nbrToSelect=random.randrange(1,bkfstLen)
+        # dd1=seleniumDevbrowser.find_element(By.NAME, "multi")
+        dropDown1=Select(dd1) #dropbox
+        for i in range(0,nbrToSelect):
+            dropDown1.select_by_index(i)
+
+        WebOrderForm.selectedItems(self,dropDown1)
+        # itemsSelected=dropDown1.all_selected_options
+        # for i in range(0,nbrToSelect):
+        #     val=itemsSelected[i].text
+        #     print(val)
+
+    def selectedItems(self,object):
+        itemsSelected=object.all_selected_options
+        size=len(itemsSelected)
+        if size == 0:
+            print("There are no items selected.")
+            return
+        for i in range(0,size):
+            val=itemsSelected[i].text
+            print(val)
+
+    def successPage(self,seleniumDevbrowser):
+        element=WebDriverWait(seleniumDevbrowser,10).until(EC.presence_of_element_located((By.ID,'greeting')))
+        messageText = seleniumDevbrowser.find_element(By.ID,"greeting")
+        msg=messageText.text
+        print("The status message is:",msg)
+        seleniumDevbrowser.back()
+
+wof=WebOrderForm()
+seleniumDevbrowser=wof.launchPage()
+wof.selectMultiItems("multi")
+##################This section between comment lines is for working on code and then moving it
+#Grab the selections in the rest of the listboxes
+disabledDropDown=seleniumDevbrowser.find_element(By.NAME, "no-select")
+v=Select(disabledDropDown)
+value=v.first_selected_option
+print("The value in the disabled dropdown is:",value.text)
+#Now get the values from the next listbox
+wof.selectMultiItems("select_empty_multiple")
+wof.selectMultiItems("multi_true")
+wof.selectMultiItems("multi_false")
+
+
+time.sleep(1)
+##########################################################################################
 email=seleniumDevbrowser.find_element(By.ID,"email")
 age=seleniumDevbrowser.find_element(By.ID,"age")
 helloThereButton=seleniumDevbrowser.find_element(By.ID,"submitButton")
@@ -28,12 +79,12 @@ print("The button label is:",btnLabel)
 email.send_keys("shawn@email.com")
 age.send_keys("21")
 helloThereButton.click()
-successPage()
+wof.successPage()
 clickMeButton=seleniumDevbrowser.find_element(By.ID,"imageButton")
 btnLabel=clickMeButton.accessible_name
 print("The button label is:",btnLabel)
 clickMeButton.click()
-successPage()
+wof.successPage()
 
 seleniumDevbrowser.find_element(By.ID, "checky").is_displayed()
 checkbox1=seleniumDevbrowser.find_element(By.ID, "checky")
@@ -75,6 +126,9 @@ dropDown1.select_by_value("two")
 selectedItem=dropDown1.first_selected_option
 val=selectedItem.text
 time.sleep(1)
-# alert = driver.switch_to.alert
 
+#Mulit-select list
+wof.selectMultiItems()
+
+# alert = driver.switch_to.alert
 time.sleep(1)
