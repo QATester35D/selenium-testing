@@ -32,10 +32,6 @@ class WebOrderForm:
             dropDown1.select_by_index(i)
 
         WebOrderForm.selectedItems(self,dropDown1)
-        # itemsSelected=dropDown1.all_selected_options
-        # for i in range(0,nbrToSelect):
-        #     val=itemsSelected[i].text
-        #     print(val)
 
     def selectedItems(self,object):
         itemsSelected=object.all_selected_options
@@ -45,7 +41,7 @@ class WebOrderForm:
             return
         for i in range(0,size):
             val=itemsSelected[i].text
-            print(val)
+            print("The value that was selected is:",val)
 
     def successPage(self,seleniumDevbrowser):
         element=WebDriverWait(seleniumDevbrowser,10).until(EC.presence_of_element_located((By.ID,'greeting')))
@@ -56,17 +52,9 @@ class WebOrderForm:
 
 wof=WebOrderForm()
 seleniumDevbrowser=wof.launchPage()
-wof.selectMultiItems("multi")
+
 ##################This section between comment lines is for working on code and then moving it
-#Grab the selections in the rest of the listboxes
-disabledDropDown=seleniumDevbrowser.find_element(By.NAME, "no-select")
-v=Select(disabledDropDown)
-value=v.first_selected_option
-print("The value in the disabled dropdown is:",value.text)
-#Now get the values from the next listbox
-wof.selectMultiItems("select_empty_multiple")
-wof.selectMultiItems("multi_true")
-wof.selectMultiItems("multi_false")
+
 
 
 time.sleep(1)
@@ -127,8 +115,21 @@ selectedItem=dropDown1.first_selected_option
 val=selectedItem.text
 time.sleep(1)
 
-#Mulit-select list
-wof.selectMultiItems()
+#Randomly selecting values from the listbox and printing them out
+print("Randomly selecting values from the listbox named: multi")
+wof.selectMultiItems("multi")
+#Grab the selections in the rest of the listboxes
+disabledDropDown=seleniumDevbrowser.find_element(By.NAME, "no-select")
+v=Select(disabledDropDown)
+value=v.first_selected_option
+print("The value in the no-select disabled dropdown is:",value.text)
+#Now get the values from the next listbox
+print("Randomly selecting values from the listbox named: select_empty_multiple")
+wof.selectMultiItems("select_empty_multiple")
+print("Randomly selecting values from the listbox named: multi_true")
+wof.selectMultiItems("multi_true")
+print("Randomly selecting values from the listbox named: multi_false")
+wof.selectMultiItems("multi_false")
 
 # alert = driver.switch_to.alert
 time.sleep(1)
