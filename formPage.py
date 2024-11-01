@@ -5,16 +5,22 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 import random
+import requests
 import time
 
+#Should look at refactoring this WebOrderForm class
+# 1. focus just on dropdown/listbox functionality
+# 2. grouping the other behaviors in another class
 class WebOrderForm:
-    def __init__(self):
-        self.url = "https://www.selenium.dev/selenium/web/formPage.html"
+    def __init__(self, url):
+        #Attributes of the WebOrderForm class here
+        # self.url = "https://www.selenium.dev/selenium/web/formPage.html"
+        self.url = url
 
+    #The following are methods for the behavior and actions - this is mixed and why it should be refactored later
     def launchPage(self):
         seleniumDevbrowser = webdriver.Firefox()
         print("Now working with the Selenium Dev webpages - the web form page")
-        # seleniumDevbrowser.get("https://www.selenium.dev/selenium/web/formPage.html")
         seleniumDevbrowser.get(self.url)
         seleniumDevbrowser.set_window_size(900, 800)
         return(seleniumDevbrowser)
@@ -53,13 +59,34 @@ class WebOrderForm:
         print("The status message is:",msg)
         seleniumDevbrowser.back()
 
-wof=WebOrderForm()
+    def checkURL(self):
+        # Finding all the available links on webpage
+        links = seleniumDevbrowser.find_elements(By.TAG_NAME, "a")
+        # Iterating each link and checking the response status
+        for i in links:
+            url = i.get_attribute("href")
+            # verifyLink(url)
+            try:
+                response = requests.head(url)
+                # check the status code
+                if response.status_code == 200:
+                    continue
+                else:
+                    print(False,"for URL:",url)
+                    continue
+            except requests.ConnectionError as e:
+                print("Connection error message:",e)
+
+wof=WebOrderForm("https://www.selenium.dev/selenium/web/index.html")
+seleniumDevbrowser=wof.launchPage()
+wof.checkURL()
+seleniumDevbrowser.close()
+
+wof=WebOrderForm("https://www.selenium.dev/selenium/web/formPage.html")
 seleniumDevbrowser=wof.launchPage()
 
+##########################################################################################
 ###This is a temporary working section at the top between comment lines is for working on code and then moving it
-# print("Randomly selecting values from the listbox named: multi")
-# wof.selectMultiItems("multi")
-
 
 # time.sleep(1)
 ##########################################################################################
