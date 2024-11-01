@@ -34,7 +34,6 @@ class WebOrderForm:
             v.deselect_all()
             bkfstLen=len(valList)
             nbrToSelect=random.randrange(1,bkfstLen)
-            # dd1=seleniumDevbrowser.find_element(By.NAME, "multi")
             dropDown1=Select(dd1) #dropbox
             for i in range(0,nbrToSelect):
                 dropDown1.select_by_index(i)
@@ -87,7 +86,6 @@ seleniumDevbrowser=wof.launchPage()
 
 ##########################################################################################
 ###This is a temporary working section at the top between comment lines is for working on code and then moving it
-
 # time.sleep(1)
 ##########################################################################################
 email=seleniumDevbrowser.find_element(By.ID,"email")
