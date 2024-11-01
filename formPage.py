@@ -22,16 +22,19 @@ class WebOrderForm:
     def selectMultiItems(self,dropdown):
         dd1=seleniumDevbrowser.find_element(By.NAME, dropdown)
         v=Select(dd1)
-        valList=v.options
-        v.deselect_all()
-        bkfstLen=len(valList)
-        nbrToSelect=random.randrange(1,bkfstLen)
-        # dd1=seleniumDevbrowser.find_element(By.NAME, "multi")
-        dropDown1=Select(dd1) #dropbox
-        for i in range(0,nbrToSelect):
-            dropDown1.select_by_index(i)
-
-        WebOrderForm.selectedItems(self,dropDown1)
+        if v.is_multiple:
+            print("This is a multiple select list.")
+            valList=v.options
+            v.deselect_all()
+            bkfstLen=len(valList)
+            nbrToSelect=random.randrange(1,bkfstLen)
+            # dd1=seleniumDevbrowser.find_element(By.NAME, "multi")
+            dropDown1=Select(dd1) #dropbox
+            for i in range(0,nbrToSelect):
+                dropDown1.select_by_index(i)
+            WebOrderForm.selectedItems(self,dropDown1)
+        else:
+            print("This is not a multi select list; exiting functionality.")
 
     def selectedItems(self,object):
         itemsSelected=object.all_selected_options
@@ -53,11 +56,12 @@ class WebOrderForm:
 wof=WebOrderForm()
 seleniumDevbrowser=wof.launchPage()
 
-##################This section between comment lines is for working on code and then moving it
+###This is a temporary working section at the top between comment lines is for working on code and then moving it
+# print("Randomly selecting values from the listbox named: multi")
+# wof.selectMultiItems("multi")
 
 
-
-time.sleep(1)
+# time.sleep(1)
 ##########################################################################################
 email=seleniumDevbrowser.find_element(By.ID,"email")
 age=seleniumDevbrowser.find_element(By.ID,"age")
