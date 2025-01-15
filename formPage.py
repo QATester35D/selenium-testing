@@ -26,18 +26,20 @@ class WebOrderForm:
         return(seleniumDevbrowser)
 
     def selectMultiItems(self,dropdown):
+        listValues=[]
         dd1=seleniumDevbrowser.find_element(By.NAME, dropdown)
         v=Select(dd1)
         if v.is_multiple:
             print("This is a multiple select list.")
-            valList=v.options
+            listSize=len(v.options)
+            nbrToSelect=random.randrange(1,listSize)
+            for i in v.options:
+                listValues.append(i.text)
+            random_items = random.sample(listValues, nbrToSelect)
             v.deselect_all()
-            bkfstLen=len(valList)
-            nbrToSelect=random.randrange(1,bkfstLen)
-            dropDown1=Select(dd1) #dropbox
             for i in range(0,nbrToSelect):
-                dropDown1.select_by_index(i)
-            WebOrderForm.selectedItems(self,dropDown1)
+                v.select_by_visible_text(random_items[i])        
+            WebOrderForm.selectedItems(self,v)
         else:
             print("This is not a multi select list; exiting functionality.")
 
@@ -76,16 +78,37 @@ class WebOrderForm:
             except requests.ConnectionError as e:
                 print("Connection error message:",e)
 
-wof=WebOrderForm("https://www.selenium.dev/selenium/web/index.html")
-seleniumDevbrowser=wof.launchPage()
-wof.checkURL()
-seleniumDevbrowser.close()
+#Not using the main menu page
+# wof=WebOrderForm("https://www.selenium.dev/selenium/web/index.html")
+# seleniumDevbrowser=wof.launchPage()
+# wof.checkURL()
+# seleniumDevbrowser.close()
 
 wof=WebOrderForm("https://www.selenium.dev/selenium/web/formPage.html")
 seleniumDevbrowser=wof.launchPage()
 
 ##########################################################################################
 ###This is a temporary working section at the top between comment lines is for working on code and then moving it
+wof.selectMultiItems("multi")
+dropdown="multi"
+listValues=[]
+dd1=seleniumDevbrowser.find_element(By.NAME, dropdown)
+v=Select(dd1)
+if v.is_multiple:
+    print("This is a multiple select list.")
+    listSize=len(v.options)
+    nbrToSelect=random.randrange(1,listSize)
+    for i in v.options:
+        listValues.append(i.text)
+    random_items = random.sample(listValues, nbrToSelect)
+    v.deselect_all()
+    for i in range(0,nbrToSelect):
+        v.select_by_visible_text(random_items[i])
+
+singleDisabled=seleniumDevbrowser.find_element(By.NAME, "single_disabled")
+v=Select(singleDisabled)
+val=v.options
+value=v.first_selected_option
 # time.sleep(1)
 ##########################################################################################
 email=seleniumDevbrowser.find_element(By.ID,"email")
@@ -130,7 +153,7 @@ try:
 except:
     print("The checkbox should not be checked.")
 
-## Dropdown
+## First Dropdown after the checkboxes (used to be line 137)
 dd1=seleniumDevbrowser.find_element(By.NAME, "selectomatic")
 dropDown1=Select(dd1) #dropbox
 selectedItem=dropDown1.first_selected_option #This is used for whatever items is selected
@@ -139,10 +162,17 @@ print("Dropdown box 1 has value:",val)
 dropDown1.select_by_index(2)
 selectedItem=dropDown1.first_selected_option
 val=selectedItem.text
+print("The selected value from the dropdown is now:",val)
 dropDown1.select_by_value("two")
 selectedItem=dropDown1.first_selected_option
 val=selectedItem.text
-time.sleep(1)
+nbrOfItems=len(dropDown1.options)
+randNbr=random.randrange(nbrOfItems)
+randNbr=randNbr-1
+dropDown1.select_by_index(randNbr)
+selectedItem=dropDown1.first_selected_option
+val=selectedItem.text
+print("Ending with the selection of this random value:",val)
 
 #Randomly selecting values from the listbox and printing them out
 print("Randomly selecting values from the listbox named: multi")
@@ -159,6 +189,8 @@ print("Randomly selecting values from the listbox named: multi_true")
 wof.selectMultiItems("multi_true")
 print("Randomly selecting values from the listbox named: multi_false")
 wof.selectMultiItems("multi_false")
+##### Dealing now with the unique dropdown that has a disabled item
 
+#####
 # alert = driver.switch_to.alert
 time.sleep(1)
