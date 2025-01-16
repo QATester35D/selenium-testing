@@ -9,23 +9,21 @@ import random
 import requests
 import time
 
-wof=formPageHelpers.WebOrderForm("https://www.selenium.dev/selenium/web/formPage.html")
-
 #Process through the main page of links making sure each link is valid; can be pinged/hit
-# wof=WebOrderForm("https://www.selenium.dev/selenium/web/index.html")
-# seleniumDevbrowser=wof.launchPage()
-# wof.checkURL(seleniumDevbrowser)
-# seleniumDevbrowser.close()
+#Not running this check all the time
+check=False
+if check:
+    wof=formPageHelpers.WebOrderForm("https://www.selenium.dev/selenium/web/index.html")
+    seleniumDevbrowser=wof.launchPage()
+    wof.checkURL(seleniumDevbrowser)
+    seleniumDevbrowser.close()
 
+wof=formPageHelpers.WebOrderForm("https://www.selenium.dev/selenium/web/formPage.html")
 seleniumDevbrowser=wof.launchPage()
 
 ##########################################################################################
 ###This is a temporary working section at the top between comment lines is for working on code and then moving it
-# singleDisabled=seleniumDevbrowser.find_element(By.NAME, "single_disabled")
-# v=Select(singleDisabled)
-# val=v.options
-# value=v.first_selected_option
-# time.sleep(1)
+
 ##########################################################################################
 email=seleniumDevbrowser.find_element(By.ID,"email")
 age=seleniumDevbrowser.find_element(By.ID,"age")
@@ -85,20 +83,27 @@ print("Ending with the selection of this random value:",val)
 #Randomly selecting values from the listbox and printing them out
 print("Randomly selecting values from the listbox named: multi")
 wof.selectMultiItems(seleniumDevbrowser,"multi")
+
 #Grab the selections in the rest of the listboxes
-disabledDropDown=seleniumDevbrowser.find_element(By.NAME, "no-select")
-v=Select(disabledDropDown)
-value=v.first_selected_option
-print("The value in the no-select disabled dropdown is:",value.text)
+wof.retrieveValuesInList(seleniumDevbrowser,"no-select")
+
 #Now get the values from the next listbox
 print("Randomly selecting values from the listbox named: select_empty_multiple")
-wof.selectMultiItems("select_empty_multiple")
+wof.retrieveValuesInList(seleniumDevbrowser,"select_empty_multiple")
 print("Randomly selecting values from the listbox named: multi_true")
-wof.selectMultiItems("multi_true")
-print("Randomly selecting values from the listbox named: multi_false")
-wof.selectMultiItems("multi_false")
-##### Dealing now with the unique dropdown that has a disabled item
+wof.selectMultiItems(seleniumDevbrowser,"select_empty_multiple")
 
+print("Randomly selecting values from the listbox named: multi_true")
+wof.selectMultiItems(seleniumDevbrowser,"multi_true")
+print("Randomly selecting values from the listbox named: multi_false")
+wof.selectMultiItems(seleniumDevbrowser,"multi_false")
+##### Dealing now with the unique dropdown that has a disabled item
+##########Continue coding here:
+singleDisabled=seleniumDevbrowser.find_element(By.NAME, "single_disabled")
+v=Select(singleDisabled)
+val=v.options
+value=v.first_selected_option
+time.sleep(1)
 #####
 # alert = driver.switch_to.alert
 time.sleep(1)

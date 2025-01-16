@@ -76,3 +76,25 @@ class WebOrderForm:
                     continue
             except requests.ConnectionError as e:
                 print("Connection error message:",e)
+
+    def retrieveValuesInList(self,seleniumDevbrowser,objName):
+        disabledDropDown=seleniumDevbrowser.find_element(By.NAME, objName)
+        v=Select(disabledDropDown)
+        #check object type to see if ths option is available
+        objType=disabledDropDown.aria_role
+        match objType:
+            case "combobox":
+                value=v.first_selected_option
+                print("The value selected and displayed is:",value.text)
+            case "listbox":
+                print("Checking this listbox allows multiple selections:",v.is_multiple)
+
+        state=disabledDropDown.is_enabled()
+        if state:
+            print("The dropdown/listbox is in an enabled state.")
+        else:
+            print("The dropdown/listbox is in a disabled state.")
+        listSize=len(v.options)
+        for i in range(0,listSize):
+            print("Value in the list:",v.options[i].text)
+        time.sleep(1)
