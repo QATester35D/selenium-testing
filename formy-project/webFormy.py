@@ -8,7 +8,7 @@ from datetime import timedelta, date
 import time
 
 #########################################################################
-#Setting up a tuple to make this test script a data driven test with data
+#Setting up a tuple to make this test script a data driven test with test data
 #########################################################################
 formTestData = [("Jerry","Seinfeld","Comedian","Grad","Male","4","+40"),
     ("Cosmos","Kramer","Schmooch","HighSchool","NotSay","1","0"),
