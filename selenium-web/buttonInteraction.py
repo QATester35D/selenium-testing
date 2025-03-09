@@ -3,9 +3,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-import time
-########################################################################
-#This script automates against two different sites
+
+#############################################################################
+# Exercising test automation against various buttons on two different sites
 #############################################################################
 # Using another site now - Selenium - https://www.selenium.dev/selenium/web/
 #############################################################################

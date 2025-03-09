@@ -9,8 +9,13 @@ import random
 import requests
 import time
 
-#Process through the main page of links making sure each link is valid; can be pinged/hit
-#Not running this check all the time
+##########################################################################################
+# Exercising test automation on a form on another website
+#
+# This first check I don't always run as it validates that each link is valid - can be pinged/hit
+# There are a lot of links to process through on the main page so I don't always 
+# run this check all the time.
+##########################################################################################
 check=False
 if check:
     wof=formPageHelpers.WebOrderForm("https://www.selenium.dev/selenium/web/index.html")
@@ -20,9 +25,6 @@ if check:
 
 wof=formPageHelpers.WebOrderForm("https://www.selenium.dev/selenium/web/formPage.html")
 seleniumDevbrowser=wof.launchPage()
-
-##########################################################################################
-###This is a temporary working section at the top between comment lines is for working on code and then moving it
 
 ##########################################################################################
 email=seleniumDevbrowser.find_element(By.ID,"email")

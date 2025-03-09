@@ -8,6 +8,9 @@ from selenium.webdriver.common.keys import Keys
 import json
 import time
 
+#########################################################################
+# Exercising test automation on verifying textbox objects being enabled & disabled
+#########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the \"Enabled and disabled elements\" page")
 formybrowser.get("https://formy-project.herokuapp.com/")

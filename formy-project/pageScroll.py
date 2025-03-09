@@ -5,6 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
 
+#########################################################################
+# Exercising test automation on the ability to use the scrollbar
+#########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the \"Page Scroll\" page")
 formybrowser.get("https://formy-project.herokuapp.com/")

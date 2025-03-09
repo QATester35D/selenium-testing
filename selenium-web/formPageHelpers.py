@@ -8,6 +8,9 @@ import random
 import requests
 import time
 
+##########################################################################################
+# This script is intended to be a helper file with methods to be used against a web order form
+##########################################################################################
 #Should look at refactoring this WebOrderForm class
 #   1. focus just on dropdown/listbox functionality
 #   2. grouping the other behaviors in another class

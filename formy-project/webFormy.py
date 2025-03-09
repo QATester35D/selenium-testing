@@ -8,6 +8,10 @@ from datetime import timedelta, date
 import time
 
 #########################################################################
+# Exercising test automation on various web objects on a web form.
+# Making it a data driven test
+#########################################################################
+#########################################################################
 #Setting up a tuple to make this test script a data driven test with test data
 #########################################################################
 formTestData = [("Jerry","Seinfeld","Comedian","Grad","Male","4","+40"),

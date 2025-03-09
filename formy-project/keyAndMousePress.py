@@ -6,6 +6,9 @@ from selenium.webdriver.support.color import Color
 from selenium.webdriver.common.keys import Keys
 import time
 
+#########################################################################
+# Exercising test automation - performing keyboard actions and mouse clicks
+#########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the \"Key and Mouse Press\" page")
 formybrowser.get("https://formy-project.herokuapp.com/")

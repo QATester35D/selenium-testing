@@ -8,7 +8,8 @@ from selenium.webdriver.support.ui import Select
 import time
 
 #########################################################################
-#Test Case to interact with the Date Picker - using sendkeys
+# Exercising test automation on the datepicker web object
+# Test Case to interact with the Date Picker - using sendkeys
 #########################################################################
 formybrowser = webdriver.Firefox()
 formybrowser.get("https://formy-project.herokuapp.com/datepicker")

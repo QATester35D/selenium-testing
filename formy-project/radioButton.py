@@ -4,6 +4,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+#########################################################################
+# Exercising test automation on radio buttons
+#########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the \"Radio Button\" page")
 formybrowser.get("https://formy-project.herokuapp.com/")

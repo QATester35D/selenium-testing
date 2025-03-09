@@ -4,7 +4,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 import time
-##########################################################################
+
+#########################################################################
+# Exercising test automation - demonstrating drag and drop capabilities
+#########################################################################
 seleniumDevbrowser = webdriver.Firefox()
 print("Now working with the Selenium Dev webpages - the Drag and Drop page")
 seleniumDevbrowser.get("https://www.selenium.dev/selenium/web/dragAndDropTest.html")

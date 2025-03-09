@@ -6,6 +6,9 @@ from selenium.webdriver.support.color import Color
 from selenium.webdriver.common.keys import Keys
 import time
 
+#########################################################################
+# Exercising test automation on the capability to upload a file
+#########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the \"File Upload\" page")
 formybrowser.get("https://formy-project.herokuapp.com/")

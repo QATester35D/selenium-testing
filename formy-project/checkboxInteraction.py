@@ -4,6 +4,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+#########################################################################
+# Exercising test automation on the checkbox web object
+#########################################################################
 formybrowser = webdriver.Firefox()
 print("Now working with the Formy webpages - the Buttons page")
 formybrowser.get("https://formy-project.herokuapp.com/")
